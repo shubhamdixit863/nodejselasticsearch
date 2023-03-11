@@ -11,11 +11,11 @@ rl.question('Enter the option   1- createIndex 2- insertData 3- getData  \r\n ',
         case 1:
          rl.question("Enter the index name \r\n",(indexName)=>{
             createIndex(answer).then(data=>{
-                console.log(data);
+                //console.log(data);
                 rl.close();
              
             }).catch(err=>{
-                console.log(err);
+                //console.log(err);
             })
 
          })   
