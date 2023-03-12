@@ -63,6 +63,25 @@ return result;
 }
 
 
+const deleteData=async (indexName,id)=>{
+  const result = await client.delete({
+    index: indexName,
+    id: id,
+  });
+
+return result;
+}
+
+const updateData=async (indexName,id)=>{
+  const result = await client.update({
+    index: indexName,
+    id: id,
+    
+  });
+
+return result;
+}
+
 
 
 module.exports={

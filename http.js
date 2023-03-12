@@ -6,36 +6,64 @@ const {getData,insertData,createIndex}=require("./elastic");
 app.use(cors());
 
 app.use(express.json()); // it is required to parse post body data
-app.get("/posts",async(req,res)=>{
+app.get("/get/:indexName",async(req,res)=>{
     console.log("Api called");
    // //console.log(req.headers.key);
     ////console.log(req.body);
-    const data=await getData("posts");
+    const name=req.params.indexName
+    if(name.length>0){
+        const data=await getData(name);
     let responseData=data.hits.hits
     for(let i=0;i<responseData.length;i++){
        // //console.log(responseData[i]._source.name);
         ////console.log(responseData[i]._source.age);
     }
     res.json(responseData);
+    }else{
+        res.json({
+            message:"Index name is required"
+        });
+    }
+   
 })
 
-app.post("/posts",async(req,res)=>{
+app.post("/add/:indexName",async(req,res)=>{
+    const name=req.params.indexName
+    if(name.length>0){
+        let result=await insertData(req.body,name);
 
-    let result=await insertData(req.body,"posts");
+        // //console.log(req.body);
+         res.json(result);
+    }else{
+        res.json({
+            message:"Index name is required"
+        });
+    }
 
-   // //console.log(req.body);
-    res.json(result);
+  
 
 });
 
 // creating index -->
 app.post("/createIndex",async (req,res)=>{
     const indexName=req.body.name;
-   const result= await createIndex(indexName);
+    try {
+        const result= await createIndex(indexName);
+        res.json(result);
+    } catch (error) {
+        res.json(error);
+    }
+   
 
-   res.json(result);
+
 })
 
+
+app.delete("/remove-post", async (req, res) => {
+
+
+  res.json(result);
+});
 
 
 
