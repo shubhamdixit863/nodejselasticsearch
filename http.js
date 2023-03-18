@@ -60,7 +60,7 @@ app.post("/createIndex",async (req,res)=>{
 
 
 app.delete("/remove-post/:id", async (req, res) => {
-    const indexName=req.body.indexName;
+    const indexName=req.body.name;
     const id=req.params.id
     try {
         let result=await deleteData(indexName,id);
@@ -78,7 +78,9 @@ app.delete("/remove-post/:id", async (req, res) => {
 
 app.delete("/edit-post/:id", async (req, res) => {
     const indexName=req.body.indexName;
+    console.log(indexName);
     const id=req.params.id
+    console.log(id);
     try {
         let result=await deleteData(indexName,id);
         res.json(result);
