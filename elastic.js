@@ -88,7 +88,8 @@ module.exports={
   createIndex,
   createIndexAsyncAwait,
   insertData,
-  getData
+  getData,
+  deleteData
   
 
 }

@@ -2,7 +2,7 @@
 const express=require("express");  // required express package
 const app=express();  // express function 
 const cors=require("cors");
-const {getData,insertData,createIndex}=require("./elastic");
+const {getData,insertData,createIndex,deleteData}=require("./elastic");
 app.use(cors());
 
 app.use(express.json()); // it is required to parse post body data
@@ -59,10 +59,38 @@ app.post("/createIndex",async (req,res)=>{
 })
 
 
-app.delete("/remove-post", async (req, res) => {
+app.delete("/remove-post/:id", async (req, res) => {
+    const indexName=req.body.indexName;
+    const id=req.params.id
+    try {
+        let result=await deleteData(indexName,id);
+        res.json(result);
+
+        
+    } catch (error) {
+        res.json(error);
+
+    }
 
 
-  res.json(result);
+
+});
+
+app.delete("/edit-post/:id", async (req, res) => {
+    const indexName=req.body.indexName;
+    const id=req.params.id
+    try {
+        let result=await deleteData(indexName,id);
+        res.json(result);
+
+        
+    } catch (error) {
+        res.json(error);
+
+    }
+
+
+
 });
 
 
