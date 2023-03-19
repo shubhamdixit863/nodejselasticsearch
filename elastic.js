@@ -72,12 +72,12 @@ const deleteData=async (indexName,id)=>{
 return result;
 }
 
-const updateData=async (indexName,id)=>{
+const updateData=async (indexName,id,body)=>{
   const result = await client.update({
     index: indexName,
     id: id,
     doc:{
-      
+      body
     }
    
     
@@ -93,7 +93,8 @@ module.exports={
   createIndexAsyncAwait,
   insertData,
   getData,
-  deleteData
+  deleteData,
+  updateData
   
 
 }

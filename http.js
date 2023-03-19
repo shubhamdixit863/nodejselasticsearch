@@ -3,7 +3,7 @@ const express=require("express");  // required express package
 const app=express();  // express function 
 const cors=require("cors");
 const authMiddleware=require("./authmiddleware");
-const {getData,insertData,createIndex,deleteData}=require("./elastic");
+const {getData,insertData,createIndex,deleteData,updateData}=require("./elastic");
 app.use(cors());
 
 app.use(express.json()); // it is required to parse post body data
@@ -99,13 +99,13 @@ app.delete("/remove-post/:id", async (req, res) => {
 
 });
 
-app.delete("/edit-post/:id", async (req, res) => {
+app.put("/edit-post/:id", async (req, res) => {
     const indexName=req.body.indexName;
-    console.log(indexName);
     const id=req.params.id
+    const body=req.body;
     console.log(id);
     try {
-        let result=await deleteData(indexName,id);
+        let result=await updateData(indexName,id,body);
         res.json(result);
 
         
