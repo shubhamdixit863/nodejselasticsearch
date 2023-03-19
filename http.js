@@ -2,10 +2,33 @@
 const express=require("express");  // required express package
 const app=express();  // express function 
 const cors=require("cors");
+const authMiddleware=require("./authmiddleware");
 const {getData,insertData,createIndex,deleteData}=require("./elastic");
 app.use(cors());
 
 app.use(express.json()); // it is required to parse post body data
+const secretKey="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+
+app.post("/auth/login",(req,res)=>{
+const username=req.body.username;
+const password=req.body.password;
+
+if(username=="test" && password=="test"){
+
+    res.json({
+        token:secretKey
+    })
+}else{
+    res.status(401).json({
+        message:"Wrong username password"
+    })
+}
+  
+
+
+})
+
+app.use(authMiddleware);
 app.get("/get/:indexName",async(req,res)=>{
     console.log("Api called");
    // //console.log(req.headers.key);
