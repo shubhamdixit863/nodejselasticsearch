@@ -76,9 +76,7 @@ const updateData=async (indexName,id,body)=>{
   const result = await client.update({
     index: indexName,
     id: id,
-    doc:{
-      body
-    }
+    doc:body
    
     
   });
