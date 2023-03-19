@@ -2,12 +2,15 @@ const secretKey="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIi
 
 const authMiddleware=(req,res,next)=>{
     const key=req.headers.token
+  //  console.log(key);
 
     if(key && key==secretKey){
         next();
+    }else{
+        res.status(401).json({message:"Please provide valid key"})
+
     }
 
-    res.status(401).json({message:"Please provide valid key"})
 
 }
 
