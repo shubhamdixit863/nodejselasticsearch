@@ -7,7 +7,7 @@ const authMiddleware=(req,res,next)=>{
     if(key && key==secretKey){
         next();
     }else{
-        res.status(401).json({message:"Please provide valid key"})
+        res.status(401).json({message:"you are not authorized"})
 
     }
 
