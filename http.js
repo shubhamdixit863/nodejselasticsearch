@@ -1,10 +1,16 @@
 // all our apis here
+var fs = require('fs');
+var http = require('http');
+var https = require('https');
+var privateKey  = fs.readFileSync('certs/key.pem', 'utf8');
+var certificate = fs.readFileSync('certs/server.crt', 'utf8');
 const express=require("express");  // required express package
 const app=express();  // express function 
 const cors=require("cors");
 const authMiddleware=require("./authmiddleware");
 const {getData,insertData,createIndex,deleteData,updateData}=require("./elastic");
 app.use(cors());
+var credentials = {key: privateKey, cert: certificate};
 
 app.use(express.json()); // it is required to parse post body data
 const secretKey="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
@@ -124,8 +130,14 @@ app.put("/edit-post/:id", async (req, res) => {
 
 });
 
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
 
+httpServer.listen(8080);
+httpsServer.listen(8443);
+/*
 
 app.listen(8080,function(){
     console.log("Server running on port ",8080)
 })
+*/
