@@ -9,6 +9,12 @@ app.use(cors());
 app.use(express.json()); // it is required to parse post body data
 const secretKey="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
 
+app.post("/apiconnector",(req,res)=>{
+    console.log(req.body);
+
+    res.json({message:"hi"})
+})
+
 app.post("/auth/login",(req,res)=>{
 const username=req.body.username;
 const password=req.body.password;
